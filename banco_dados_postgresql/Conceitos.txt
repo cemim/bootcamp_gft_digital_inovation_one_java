@@ -1,0 +1,15 @@
+1 Arquivos
+ - Postgresql.conf: Principal de configurações do Banco de dados;
+ - Pg_hba.conf: Controle de autenticação dos usuários;
+ - Pg_ident.conf: Mapear usuários do sistema operacional com os do banco de dados. (A opção ident deve ser liberada no pg_hba.conf).
+
+2 Arquitetura/Hierarquia
+ - Cluster: Coleção de banco de dados que compartilham as mesmas configurações;
+ - Banco de dados: Conjunto de schemas com suas tabelas, funções, view, etc;
+ - Schemas: São objetos/relações(tabelas, funções, view, etc).
+
+3 Comandos Administrativos Ubuntu
+ - pg_lsclusters: Lista todos os Clusters;
+ - pg_createcluster <Versão PG> <Nome Cluster>: Criar novo;
+ - pg_dropcluster <Versão PG> <Nome Cluster>: Remover;
+ - pg_ctlcluster <Versão PG> <Nome Cluster> <ação>: start, stop, status, restart do cluster.
