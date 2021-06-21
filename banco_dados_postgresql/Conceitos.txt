@@ -12,4 +12,15 @@
  - pg_lsclusters: Lista todos os Clusters;
  - pg_createcluster <Versão PG> <Nome Cluster>: Criar novo;
  - pg_dropcluster <Versão PG> <Nome Cluster>: Remover;
- - pg_ctlcluster <Versão PG> <Nome Cluster> <ação>: start, stop, status, restart do cluster.
+ - pg_ctlcluster <Versão PG> <Nome Cluster> <ação>: start, stop, status, restart, reload do cluster.
+
+4 Comandos Administrativos Postgresql
+ - Alterar senha usuário postgres: postgres=# ALTER USER postgres PASSWORD '<Colocar aqui a senha>';
+ - Criar Regra: CREATE ROLE professores NOCREATEDB NOCREATEROLE INHERIT NOLOGIN NOBYPASSRLS CONNECTION LIMIT 10; 
+ - Listar Regras: auladb=# \du 
+ - Alterar regra para inserir a senha: ALTER ROLE professores PASSWORD '123';
+ - Criar regra com conexão no banco: CREATE ROLE daniel LOGIN PASSWORD '123';
+ - Remove a regra daniel: DROP ROLE daniel;
+ - Dá permissão total para os professores na tabela teste: GRANT ALL ON TABLE teste TO professores;
+ - Cria a regra daniel e insere como membro de professores: CREATE ROLE daniel LOGIN PASSWORD '123' IN ROLE professores;
+ - Remove daniel das regras professores: REVOKE professores FROM daniel;
