@@ -121,3 +121,15 @@ full join  agencia on agencia.banco_numero = banco.numero;
 select banco.numero, banco.nome, agencia.numero, agencia.nome
 from  banco
 cross join  agencia;
+
+-- Common Table Expression (CTE)
+-- Cria uma tabela temporária, semelhante aos sub selects, mas de maneira mais organizada
+with tb_temporaria_banco as (
+	select numero, nome from banco
+)
+select numero, nome from tb_temporaria_banco
+
+with params as (
+	select 213 as banco_numero
+), tbl_tmp_banco as ( select numero, nome from banco join params on params.banco_numero = banco.numero)
+select numero, nome from tbl_tmp_banco
