@@ -1,5 +1,5 @@
 -- Criar Banco de Dados e Tabelas
-CREATE DATABASE IF NOT EXISTS financas;
+CREATE DATABASE financas;
 
 CREATE TABLE IF NOT EXISTS banco (
 	numero INTEGER NOT NULL,
@@ -60,3 +60,37 @@ CREATE TABLE IF NOT EXISTS cliente_transacoes(
 	FOREIGN KEY (banco_numero, agencia_numero, conta_corrente_numero, conta_corrente_digito, cliente_numero) 
 	REFERENCES conta_corrente (banco_numero, agencia_numero, numero, digito, cliente_numero)
 );
+
+-- Importar o arquivo scripts_professor/dml.sql para popular as tabelas
+
+-- SELECTS BÁSICOS
+select numero, nome from banco;
+select banco_numero, numero, nome from agencia;
+select numero, nome, email from cliente;
+select banco_numero, agencia_numero, cliente_numero from cliente_transacoes;
+
+-- Ver todos as colunas de uma tabela
+select * from information_schema.columns where table_name = 'banco';
+select column_name, data_type from information_schema.columns where table_name = 'banco';
+
+-- Pegar média dos valores
+select avg(valor) from cliente_transacoes;
+
+-- Contar
+select count(numero) from cliente;
+
+-- Contar os emails agrupados
+select count(numero), email from cliente where email like '%gmail.com' group by email;
+
+-- Selecionar o maior número para cada tipo de transação
+select max(valor), tipo_transacao_id from cliente_transacoes group by tipo_transacao_id;
+
+-- Selecionar o menor número para cada tipo de transação
+select min(valor), tipo_transacao_id from cliente_transacoes group by tipo_transacao_id;
+
+-- Ignora a contagem dos ids menor ou igual a 150
+select count(id), tipo_transacao_id from cliente_transacoes group by tipo_transacao_id having count(id) > 150;
+
+-- Somar valores
+select sum(valor) from cliente_transacoes;
+select sum(valor), tipo_transacao_id from cliente_transacoes group by tipo_transacao_id order by tipo_transacao_id desc;
