@@ -133,3 +133,49 @@ with params as (
 	select 213 as banco_numero
 ), tbl_tmp_banco as ( select numero, nome from banco join params on params.banco_numero = banco.numero)
 select numero, nome from tbl_tmp_banco
+
+
+-- VIEWS
+create or replace view vw_bancos as (
+	select numero, nome, ativo
+	from banco
+);
+select numero, nome, ativo from vw_bancos;
+
+create or replace view vw_bancos2 (banco_numero, banco_nome, banco_ativo) as (
+	select numero, nome, ativo
+	from banco
+);
+select banco_numero, banco_nome, banco_ativo from vw_bancos2;
+
+-- Nas views só é permitido insert, update ou delete quando não houver join
+-- Ao inserir um registro usando uma view esse registro é inserido na tabela em que a view faz referência
+insert into vw_bancos2 (banco_numero, banco_nome, banco_ativo) values (51, 'Banco Boa Ideia', true);
+update vw_bancos2 set banco_ativo = false where banco_numero = 51;
+delete from vw_bancos2 where banco_numero = 51;;
+
+-- Temporary cria uma view temporária que só pode ser consultada na própria janela ou terminal do SQL
+create or replace temporary view vw_agencia as (
+	select nome
+	from agencia
+);
+select * from vw_agencia;
+
+-- local check option faz a validação ao fazer um insert ou update para que o valor seja o mesmo do where, no exemplo faz a verificação se o campo esta ativo
+create or replace view vw_bancos_ativos as (
+	select numero, nome, ativo 
+	from banco
+	where ativo is true
+) with local check option; 
+
+-- Gera um erro por causa da validação acima
+insert into vw_bancos_ativos (numero, nome, ativo) values (51, 'Banco Boa Ideia', false);
+
+-- Ao trocar o local por cascade ele irá validar as regras de todas as views
+create or replace view vw_bancos_com_a as (
+	select numero, nome, ativo 
+	from vw_bancos_ativos
+	where nome ilike 'a%'
+) with local check option; 
+insert into vw_bancos_com_a (numero, nome, ativo) values (333, 'Alfa Omega', true);
+select numero, nome, ativo from vw_bancos_com_a;
