@@ -179,3 +179,32 @@ create or replace view vw_bancos_com_a as (
 ) with local check option; 
 insert into vw_bancos_com_a (numero, nome, ativo) values (333, 'Alfa Omega', true);
 select numero, nome, ativo from vw_bancos_com_a;
+
+
+-- TRANSAÇÕES
+-- Inicia uma transação e o commit efetiva a transação
+-- Caso o desenvolvedor queira cancelar a transação utiliza o rollback
+update banco set ativo = false where numero = 0;
+begin;
+update banco set ativo = true where numero = 0;
+rollback;
+
+select numero, nome, ativo from banco where banco.numero = 0;
+
+update banco set ativo = false where numero = 0;
+begin;
+update banco set ativo = true where numero = 0;
+commit;
+
+select numero, nome, ativo from banco where banco.numero = 0;
+
+-- savepoint salva as informações até um determinado ponto
+select numero, nome, ativo from banco where numero = '654' or numero = '246' or numero = 0;
+begin;
+	update banco set ativo = false where numero = '654';
+	savepoint sf_banco;
+	update banco set ativo = false where numero = '246';
+rollback to sf_banco;
+	update banco set ativo = false where numero = '0';
+commit;
+select numero, nome, ativo from banco where numero = '654' or numero = '246' or numero = 0;
