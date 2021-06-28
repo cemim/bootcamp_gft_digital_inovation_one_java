@@ -208,3 +208,51 @@ rollback to sf_banco;
 	update banco set ativo = false where numero = '0';
 commit;
 select numero, nome, ativo from banco where numero = '654' or numero = '246' or numero = 0;
+
+
+-- FUNÇÕES
+create or replace function func_somar(integer, integer)
+returns integer
+security definer -- Peermite qualquer usuário executar
+-- returns null on null input -- Usando esse parâmetro a função não será executada se um dos parametros for null e retornará null
+called on null input -- Permite a função executar com parâtro null
+language sql
+as $$
+	-- coalesce retorna o primeiro valor não nulo, 
+	-- então caso o primeiro ou o segundo parametro sejam nulo retorna 0
+	select coalesce($1,0) + coalesce($2,0);
+$$;
+
+select func_somar(1,null);
+
+create or replace function bancos_add(p_numero integer, p_nome varchar, p_ativo boolean)
+returns integer
+security invoker -- Ao executar os comandos faz a verificação das permissões de usuário
+called on null input 
+language plpgsql
+as $$
+	declare variavel_id integer; -- Declaração variável
+	begin
+		-- Verifica se algum dos parâmetros for nulo
+		if p_numero is null or p_nome is null or p_ativo is null then
+			return -1;
+		end if;
+		
+		-- Insere na variavel_id o número do banco informado no parâmetro, caso exista algum banco com esse id cadastrado
+		select into variavel_id numero from banco where numero = p_numero;
+		
+		-- Verifica se a variavel_id é nula, se for nula, significa que não há banco com o numero informado no parâmetro
+		if variavel_id is null then
+			insert into banco(numero, nome, ativo) values(p_numero, p_nome, p_ativo);
+			select into variavel_id numero from banco where numero = p_numero;
+			return variavel_id;
+		else
+			return -2;
+		end if;
+	end;
+$$;
+select bancos_add(1, 'banco novo', null); -- Retorna -1, cod para valor null
+select bancos_add(1, 'banco novo', false); -- Retorna -2, pois o número do banco já existe
+select bancos_add(5433, 'banco novo', false); -- Cadastra novo banco e retorna o número cadastrado
+
+select * from banco where numero = 5433;
