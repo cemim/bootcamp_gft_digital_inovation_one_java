@@ -3,3 +3,9 @@ Requisitos:
 - gradle-7.1
 - maven-3.8.1
 - IntelliJ IDE Community 2021.1.2
+- Endereço Criar Projetos: https://start.spring.io/ Neste endereço é importante instalar o plugin Spring Web
+
+Build Projeto
+- Gerar o build maven no canto direito da IDE em lifecycle > install no gradle tasks > build > build
+- Rodar a aplicação: Em plugins em spring-boot clicar no run, 
+no gradle em tasks > application > bootrun, para dar início a aplicação na porta 8080: http://localhost:8080 
