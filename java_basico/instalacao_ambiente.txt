@@ -2,7 +2,7 @@ Requisitos:
 - jdk 11;
 - gradle-7.1
 - maven-3.8.1
-- IntelliJ IDE Community 2021.1.2
+- IntelliJ IDE Community 2021.1.2 
 - Endereço Criar Projetos: https://start.spring.io/ Neste endereço é importante instalar o plugin Spring Web
 
 Build Projeto
