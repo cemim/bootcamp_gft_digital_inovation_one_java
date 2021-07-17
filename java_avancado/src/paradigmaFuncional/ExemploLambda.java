@@ -1,4 +1,4 @@
-package br.com.fcemim.paradigmaFuncional;
+package paradigmaFuncional;
 
 public class ExemploLambda {
     public static void main(String[] args) {

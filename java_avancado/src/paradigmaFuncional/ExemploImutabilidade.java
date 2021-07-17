@@ -1,4 +1,4 @@
-package br.com.fcemim.paradigmaFuncional;
+package paradigmaFuncional;
 
 import java.util.Arrays;
 import java.util.function.UnaryOperator;
