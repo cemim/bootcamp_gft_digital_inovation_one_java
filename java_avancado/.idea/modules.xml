@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/com.fcemim.core/com.fcemim.core.iml" filepath="$PROJECT_DIR$/com.fcemim.core/com.fcemim.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.fcemim.test/com.fcemim.test.iml" filepath="$PROJECT_DIR$/com.fcemim.test/com.fcemim.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.fcemim.utils/com.fcemim.utils.iml" filepath="$PROJECT_DIR$/com.fcemim.utils/com.fcemim.utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_avancado.iml" filepath="$PROJECT_DIR$/java_avancado.iml" />
     </modules>
   </component>
