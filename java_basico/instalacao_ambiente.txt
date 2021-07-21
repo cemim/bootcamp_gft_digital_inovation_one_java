@@ -7,5 +7,5 @@ Requisitos:
 
 Build Projeto
 - Gerar o build maven no canto direito da IDE em lifecycle > install no gradle tasks > build > build
-- Rodar a aplicação: Em plugins em spring-boot clicar no run, 
+- Rodar a aplicação: No Maven em plugins > spring-boot > run, 
 no gradle em tasks > application > bootrun, para dar início a aplicação na porta 8080: http://localhost:8080 
