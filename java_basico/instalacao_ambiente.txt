@@ -9,3 +9,14 @@ Build Projeto
 - Gerar o build maven no canto direito da IDE em lifecycle > install no gradle tasks > build > build
 - Rodar a aplicação: No Maven em plugins > spring-boot > run, 
 no gradle em tasks > application > bootrun, para dar início a aplicação na porta 8080: http://localhost:8080 
+
+Comandos:
+- Gerar o arquivo .jar na pasta target
+mvn clean package
+
+- Executar o jar
+java -jar .\target\introducao_springboot-0.0.1-SNAPSHOT.jar
+
+- Adicionar configurações pela linha de comando:
+mvn spring-boot:run -Dserver.port=8085
+
